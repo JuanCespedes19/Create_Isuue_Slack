@@ -25,5 +25,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.SLACK_SERVICE_TOKEN }}
       run: |
-        cd gh-actions-demo/
+        cd Create_issue_slack/
         slack deploy -s --token $SLACK_SERVICE_TOKEN
