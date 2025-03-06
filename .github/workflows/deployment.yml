@@ -1,0 +1,29 @@
+name: Slack App Deployment
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Deno runtime
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: v1.x
+
+    - name: Install Slack CLI
+      if: steps.cache-slack.outputs.cache-hit != 'true'
+      run: |
+        curl -fsSL https://downloads.slack-edge.com/slack-cli/install.sh | bash
+
+    - name: Deploy the app
+      env:
+        SLACK_SERVICE_TOKEN: ${{ secrets.SLACK_SERVICE_TOKEN }}
+      run: |
+        cd gh-actions-demo/
+        slack deploy -s --token $SLACK_SERVICE_TOKEN
