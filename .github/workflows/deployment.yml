@@ -23,7 +23,7 @@ jobs:
 
     - name: Deploy the app
       env:
-        SLACK_SERVICE_TOKEN: ${{ secrets.SLACK_SERVICE_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.SLACK_SERVICE_TOKEN }}
       run: |
         cd gh-actions-demo/
         slack deploy -s --token $SLACK_SERVICE_TOKEN
